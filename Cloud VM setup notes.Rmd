@@ -1,0 +1,120 @@
+---
+title: "Cloud VM setup notes"
+output: html_document
+---
+
+**Notes on setting up the data collection environment on Google Cloud**
+
+# Create VM
+Parameters (might be modified, e.g. a smaller persistent drive might suffice):
+
+- Machine type: e2-medium (2 vCPUs, 4 GB memory)
+- Display device: Enabled (to be able to install the Protonmail bridge, and Tor browser/Selenium for scaping)
+- Boot Disk: Ubuntu 18.04 LTS (20 GB)
+- Allow HTTP(s) traffic
+
+
+
+# Install and configure Ubuntu GUI (Gnome) 
+https://ubuntu.com/blog/launch-ubuntu-desktop-on-google-cloud :
+
+```{}
+$ sudo tasksel install ubuntu-desktop
+```
+
+
+(reboot and check "screenshot" in the GCP web interface to see whether the Ubuntu login screen appears)
+
+Enable Automatic login (since we don't have a mouse and keyboard connected to the VM):
+
+
+```{}
+sudo nano /etc/gdm3/custom.conf
+```
+
+Change this config file as follows, and save:
+```{}
+# cf. https://askubuntu.com/questions/967847/ubuntu-17-10-gdm-auto-login-not-working
+# Enabling automatic login
+#AutomaticLoginEnable=true
+#AutomaticLogin=tbay
+# Enabling timed login
+TimedLoginEnable=true
+TimedLogin=tbay
+TimedLoginDelay=0
+```
+
+
+
+Avoid screen going blank:
+
+```{}
+$ gsettings set org.gnome.desktop.session idle-delay 0
+```
+
+
+
+Start a GUI app from the SSH command line:
+
+```{}
+$ export DISPLAY=":1"
+$ gnome-sudoku &
+```
+
+
+
+# Install coding tools (Python etc.)
+
+```{}
+sudo apt-get update
+sudo apt-get install git
+```
+
+Python3 and Anaconda: ... 
+
+...For now, I simply reused the W266 setup for this, which has a lot of unnecessary parts for this:
+```{}
+$ git clone https://github.com/datasci-w266/2021-fall-main.git ~/w266
+$ ./w266/assignment/a0/cloud/setup.sh
+```
+
+```{}
+$ sudo apt install python3-pip
+$ pip3 install socks 
+$ sudo apt-get install python3-socks
+```
+
+
+# install cron jobs
+Test job (runs once per hour to log the date/time to a log file):
+
+```{}
+$ crontab -e
+```
+Add the following line to the config file, and save:
+```{}
+0 * * * * date >> ~/W241/crontest.log
+```
+
+
+
+# Install Tor Browser
+
+```{}
+$ curl -O https://dist.torproject.org/torbrowser/11.0.2/tor-browser-linux64-11.0.2_en-US.tar.xz
+tar -xf tor-browser-linux64-11.0.2_en-US.tar.xz 
+cd tor-browser_en-US/
+./start-tor-browser.desktop
+```
+
+# Install Protonmail bridge==
+
+https://protonmail.com/support/knowledge-base/bridge-for-linux/
+
+https://pychao.com/2018/10/14/use-protonmail-for-wordpress-servers-smtp-setting-on-google-cloud-platform/ 
+
+...
+
+
+# Create user accounts for team members, enabling ssh access
+...

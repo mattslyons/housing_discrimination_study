@@ -1,0 +1,205 @@
+---
+title: "rental_power_analysis"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(stargazer)
+library(future.apply)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+make_cities <- function(city_n) {
+
+  cities <- data.table(
+    city = c('chicago',
+          'dallas',
+          'houston',
+          'washingtondc',
+          'philadelphia',
+          'miami',
+          'atlanta',
+          'boston',
+          'phoenix',
+          'sfbay',
+          'inlandempire',
+          'detroit',
+          'seattle',
+          'losangeles',
+          'minneapolis',
+          'newyork',
+          'sandiego',
+          'tampa',
+          'denver',
+          'baltimore'),
+    n = rep(300,20),
+    # median_price = c(1000, 862, 700),
+    # sd_city = c(200, 150, 150),
+    female_subj_ratio = rep(.5,20),
+    black_subj_ratio = rep(.5,20),
+    
+    # predicted response ratios by group
+    # racial estimates from Wave 1 of https://doi.org/10.1177%2F2378023120972287
+    # Males offset taken from https://doi.org/10.1016/j.regsciurbeco.2018.10.003
+    # using the "single" category of Murchie
+    
+    rr_white_female = runif(20,.519,.635),
+    rr_white_male = runif(20,.519 - .0255,.635 - .0255),
+    
+    rr_black_female = runif(20,.343,.422),
+    rr_black_male = runif(20,.343 + .0694,.422 + .0694)
+
+  )
+
+  return(cities)
+}
+
+cities <- make_cities(num_in_city)
+cities
+```
+
+```{r}
+make_city_data <- function(city = cities[1,]){
+  n = city[,n]
+  
+  subj_female = trunc(city[,female_subj_ratio] * n)
+  subj_black = trunc(city[,black_subj_ratio] * n)
+  
+  city_data <- data.table(
+    city = rep(city[,city],city[,n]),
+    #list_price = rnorm(n=n,mean=city[,median_price],sd=city[,sd_city]),
+    
+    # randomly apply subjects to treatments
+    female = sample(rep(0:1,c(n-subj_female, subj_female))),
+    black = sample(rep(0:1,c(n-subj_black, subj_black)))
+  )
+  
+  # apply predicted response rate to each group
+  rr_white_male <- c(city[,rr_white_male],1-city[,rr_white_male])
+  city_data[I(!female) & I(!black), response := sample(
+    1:0,
+    size = .N,
+    replace = TRUE,
+    prob = rr_white_male)]
+  
+  rr_white_female <- c(city[,rr_white_female],1-city[,rr_white_female])
+  city_data[I(female) & I(!black), response := sample(
+    1:0,
+    size = .N,
+    replace = TRUE,
+    prob = rr_white_female)]
+  
+  rr_black_male <- c(city[,rr_black_male],1-city[,rr_black_male])
+  city_data[I(!female) & I(black), response := sample(
+    1:0,
+    size = .N,
+    replace = TRUE,
+    prob = rr_black_male)]
+  
+  rr_black_female <- c(city[,rr_black_female],1-city[,rr_black_female])
+  city_data[I(female) & I(black), response := sample(
+    1:0,
+    size = .N,
+    replace = TRUE,
+    prob = rr_black_female)]
+  
+  return(city_data)
+  
+}
+```
+
+```{r}
+# function to calculate power in lapply
+calcpow <- function(col) {return(mean(col<.05))}
+```
+
+```{r}
+make_multi_city_data <- function(cities = cities) {
+
+  multi_city_data <- data.table()
+  
+  for (i in 1:cities[,.N]) {
+    multi_city_data <- rbind(multi_city_data,make_city_data(city = cities[i,]))
+  }
+  
+  return(multi_city_data)
+}
+
+multi_city_data <- make_multi_city_data(cities)
+```
+
+
+```{r}
+multi_city_data[,mean(response), by = .(female,black)]
+
+```
+
+```{r}
+# m_boston <- multi_city_data[city == 'Boston',lm(response ~ female * black)]
+# m_chicago <- multi_city_data[city == 'Chicago',lm(response ~ female * black)]
+# m_phili <- multi_city_data[city == 'Philadelphia',lm(response ~ female * black)]
+m_multi_city_simple <- multi_city_data[,lm(response ~ female * black)]
+m_multi_city_FE <- multi_city_data[,lm(response ~ female * black + city)]
+
+stargazer(m_multi_city_simple, m_multi_city_FE,
+          column.labels = c('simple', 'cityFE'),
+           type = 'text')
+```
+
+# ```{r}
+# sim_multi_city_simple_pv <- function(multi_city_data = multi_city_data) {
+#   
+#   n_subj = sum(cities[,n])
+#   
+#   #create model
+#   mod_multi_city <- multi_city_data[,lm(response ~ female * black)]
+#   
+#   # extract p-values
+#   return(summary(mod_multi_city)$coefficients[,4])
+# 
+# }
+# 
+# multi_city_simple_pv <- future_replicate(
+#   1000,
+#   expr = sim_multi_city_simple_pv(make_multi_city_data(cities))
+# )
+# 
+# multi_city_simple_pv <- as.data.table(t(multi_city_simple_pv))
+# 
+# multi_city_simple_power <- multi_city_simple_pv[,future_lapply(.SD,calcpow)]
+# 
+# multi_city_simple_power
+# ```
+
+```{r}
+sim_multi_city_FE_pv <- function(multi_city_data = multi_city_data) {
+  
+  n_subj = sum(cities[,n])
+  
+  #create model
+  mod_multi_city <- multi_city_data[,lm(response ~ female * black + city)]
+  
+  # extract p-values
+  return(summary(mod_multi_city)$coefficients[,4])
+
+}
+
+multi_city_FE_pv <- future_replicate(
+  1000,
+  expr = sim_multi_city_FE_pv(make_multi_city_data(cities))
+)
+
+multi_city_FE_pv <- as.data.table(t(multi_city_FE_pv))
+
+multi_city_FE_power <- multi_city_FE_pv[,future_lapply(.SD,calcpow)]
+
+multi_city_FE_power
+```
+
+
+
+

@@ -1,0 +1,169 @@
+---
+title: "Response Analysis"
+author: "Luke Verdi, Tilman Bayer"
+date: "12/16/2021"
+output: pdf_document
+---
+
+Read in packages and saved data from the email scripts:
+
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(stargazer)
+library(future.apply)
+library(ggplot2)
+library(tidyverse)
+
+rental_response_data = read.csv("../../data/Interim/rental_response_data.csv") 
+rental_response_data <- rental_response_data %>% filter(city != 'test')
+```
+
+Also have a bit of code to pull in segregation data:
+
+```{r}
+segregation <- read.csv("../../data/raw/Segregation_by_metro_areas_2021-10.csv")
+# Obtained via curl  https://belonging.berkeley.edu/sites/default/files/2021-10/Segregation%20by%20metro%20areas%20CSV.zip | zcat >> Segregation_by_metro_areas_2021-10.csv
+
+# TKTK: match our 20 Craigslist region names to these metro regions
+# TKTK: Write up a short justification for this matching, citing e.g.
+# https://geoffboeing.com/publications/craigslist-rental-housing-markets/ :
+# "Craigslist geographies are not always a perfect match for census geographies
+# [...] but the vast majority of listings are far from these gray-area boundaries 
+# and the geographies do generally correspond well."
+
+df <- segregation %>% mutate(City = NA) %>% filter(Metro=='Clear') 
+for (city in unique(rental_response_data$city)) {
+  
+    row <- segregation[grepl(toupper(city), toupper(segregation$Metro)),]
+    
+    if (nrow(row) != 1) {
+      
+      if (city == 'washingtondc') {
+            row <- segregation[grepl(toupper('Washington'), toupper(segregation$Metro)),]
+        } else if (city == 'sfbay') {
+            row <- segregation[grepl(toupper('San Francisco'), toupper(segregation$Metro)),]
+        } else if (city == 'inlandempire') {
+            row <- segregation[grepl(toupper('Riverside'), toupper(segregation$Metro)),]
+        } else if (city == 'sandiego') {
+            row <- segregation[grepl(toupper('San Diego'), toupper(segregation$Metro)),]
+        } else if (city == 'newyork') {
+            row <- segregation[grepl(toupper('New York'), toupper(segregation$Metro)),]
+        } else if (city == 'losangeles') {
+            row <- segregation[grepl(toupper('Los Angeles'), toupper(segregation$Metro)),]
+        } else if (city == 'atlanta') {
+            row <- segregation[grepl(toupper(city), toupper(segregation$Metro)),]
+        } else if (city == 'baltimore') {
+            row <- segregation[grepl(toupper(city), toupper(segregation$Metro)),]
+        }
+    } 
+    
+    row$city <- city
+    df <- rbind(df, row)
+}
+  
+rental_response_data <- rental_response_data %>% merge(df)
+```
+
+This script will use the saved rental response data once that is is fully populated. In the meantime, artificial data will need to be generated:
+
+```{r}
+# predicted response ratios by group
+rr_white_male = .5
+rr_white_female = .7
+rr_black_male = .3
+rr_black_female = .35
+white_male_names = c("Brad Anderson","Steven Smith","Luke Mitchell","Brian Bailey")
+white_female_names = c("Hilary Roberts", "Amy Morgan", "Stephanie Nelson", "Kristen Hall")
+black_male_names = c("Jamal Jefferson", "DeAndre Jackson", "Terell Robinson", "Jayvon Carter")
+black_female_names = c("Shanice Thomas", "Tionna Wilson" , "Ebony Williams", "Tyra Booker")
+
+# to have fake data to work with:
+rental_response_data <- rental_response_data %>%
+  filter(city != 'test') %>%
+  mutate(response = ifelse(!is.na(response_timestamp), 1, 0))
+
+# comment this out once data pipeline fully working:
+rental_response_data$response <- NA
+rental_response_data$sending_name <- NA
+for (i in 1:nrow(rental_response_data)) {
+  
+  female = rental_response_data$female[i]
+  black = rental_response_data$black[i]
+  
+  rental_response_data$response[i] = ifelse(female == 1 & black == 1, sample(0:1, 1, 
+                                                           prob = c(1-rr_black_female, rr_black_female)),
+                                     ifelse(female == 1 & black == 0, sample(0:1, 1, 
+                                                           prob = c(1-rr_white_female, rr_white_female)), 
+                                     ifelse(female == 0 & black == 0, sample(0:1, 1, 
+                                                           prob = c(1-rr_white_male, rr_white_male)),
+                                            sample(0:1, 1, prob = c(1-rr_black_male, rr_black_male)))))
+  
+  rental_response_data$sending_name[i] = ifelse(female == 1 & black == 1, sample(black_female_names),
+                                         ifelse(female == 1 & black == 0, sample(white_female_names), 
+                                         ifelse(female == 0 & black == 0, sample(white_male_names),
+                                            sample(black_male_names))))
+
+}
+```
+
+Here we add indicator variables for each of the name effects, and build each model. 
+
+We'll be using models ranging from a more simple model with 3 terms:
+
+$$Response=\alpha+\beta_{1}Female+\beta_{2}Black+\beta_{3}Female*Black$$
+
+To models with controls for cities and names:
+
+$$Response=\alpha+\beta_{1}Female+\beta_{2}Black+\beta_{3}Female*Black + \beta_{i}City_{Chicago} + ... + B_{n}Name_{Brian Bailey} + ...$$
+
+
+```{r}
+d <- as.data.table(rental_response_data)
+d <- d[, Brian_Bailey := ifelse(sending_name == 'Brian Bailey', 1, 0)]
+d <- d[, Steven_Smith := ifelse(sending_name == 'Steven Smith', 1, 0)]
+d <- d[, Luke_Mitchell := ifelse(sending_name == 'Luke Mitchell', 1, 0)]
+d <- d[, Kristen_Hall := ifelse(sending_name == 'Kristen Hall', 1, 0)]
+d <- d[, Stephanie_Nelson := ifelse(sending_name == 'Stephanie Nelson', 1, 0)]
+d <- d[, Amy_Morgan := ifelse(sending_name == 'Amy Morgan', 1, 0)]
+d <- d[, DeAndre_Jackson := ifelse(sending_name == 'DeAndre Jackson', 1, 0)]
+d <- d[, Terell_Robinson := ifelse(sending_name == 'Terell Robinson', 1, 0)]
+d <- d[, Jayvon_Carter := ifelse(sending_name == 'Jayvon Carter', 1, 0)]
+d <- d[, Tionna_Wilson := ifelse(sending_name == 'Tionna Wilson', 1, 0)]
+d <- d[, Ebony_Williams := ifelse(sending_name == 'Ebony Williams', 1, 0)]
+d <- d[, Tyra_Booker := ifelse(sending_name == 'Tyra Booker', 1, 0)]
+
+mod_simple <-  d[,lm(response ~ female + black + female:black)]
+
+mod_city_controls <- d[,lm(response ~ female + black + female:black + city)]
+mod_city_segregation_1 <- d[,lm(response ~ female + black + female:black + Divergence)] 
+mod_city_segregation_2 <- d[,lm(response ~ female + black + female:black + Segregation.Category)] 
+
+mod_name_controls  <- d[,lm(response ~ female + black + female:black + city + 
+                                       Brian_Bailey + Steven_Smith + Luke_Mitchell + 
+                                       DeAndre_Jackson + Terell_Robinson + Jayvon_Carter + 
+                                       Tionna_Wilson + Ebony_Williams + Tyra_Booker)] 
+```
+
+Now can render the stargazer table and a plot if desired:
+
+```{r}
+stargazer(mod_simple, mod_city_controls, mod_city_segregation_1, 
+          mod_city_segregation_2, mod_name_controls,
+          type = 'text',
+          font.size = "small",
+          align = TRUE,
+          omit.stat=c("f", "ser")
+          )
+
+plot_data <- data.frame('Class' = c('White male', 'Black male', 'White Female', 'Black Female'),
+                        'Response' = c(coef(mod_simple)[1], 
+                                       coef(mod_simple)[1] + coef(mod_simple)[3], 
+                                       coef(mod_simple)[1] + coef(mod_simple)[2], 
+                                       coef(mod_simple)[1] + coef(mod_simple)[2] + coef(mod_simple)[3] + coef(mod_simple)[4]))
+ 
+ggplot(plot_data) +
+  geom_bar( aes(x=Class, y=Response), stat="identity", fill="blue", alpha=0.8)
+```
+
+By looking at the terms for female, black and the female:black interaction term, we can assess the hypotheses of whether racial/ethnic minorities in the US subject to bias when seeking housing, and whether such bias vary by gender.

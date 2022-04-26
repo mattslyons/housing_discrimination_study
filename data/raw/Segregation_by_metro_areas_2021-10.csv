@@ -1,0 +1,226 @@
+Rank,Metro,Divergence,Segregation Category
+1,"Chicago-Joliet-Naperville, IL-IN-WI",0.3985,High Segregation
+2,"New York-Northern New Jersey-Long Island, NY-NJ-PA",0.3919,High Segregation
+3,"Milwaukee-Waukesha-West Allis, WI",0.3504,High Segregation
+4,"Detroit-Warren-Livonia, MI",0.3381,High Segregation
+5,"Trenton-Ewing, NJ",0.3354,High Segregation
+6,"Miami-Fort Lauderdale-Pompano Beach, FL",0.3272,High Segregation
+7,"Los Angeles-Long Beach-Santa Ana, CA",0.3175,High Segregation
+8,"Cleveland-Elyria-Mentor, OH",0.302,High Segregation
+9,"Beaumont-Port Arthur, TX",0.2994,High Segregation
+10,"Atlanta-Sandy Springs-Marietta, GA",0.2923,High Segregation
+11,"Philadelphia-Camden-Wilmington, PA-NJ-DE-MD",0.2901,High Segregation
+12,"Memphis, TN-MS-AR",0.2855,High Segregation
+13,"Washington-Arlington-Alexandria, DC-VA-MD-WV",0.2852,High Segregation
+14,"Baltimore-Towson, MD",0.2792,High Segregation
+15,"New Orleans-Metairie-Kenner, LA",0.2707,High Segregation
+16,"Birmingham-Hoover, AL",0.2616,High Segregation
+17,"Houston-Sugar Land-Baytown, TX",0.2589,High Segregation
+18,"Dallas-Fort Worth-Arlington, TX",0.2522,High Segregation
+19,"Salinas, CA",0.2514,High Segregation
+20,"St. Louis, MO-IL",0.2512,High Segregation
+21,"Buffalo-Niagara Falls, NY",0.2379,High Segregation
+22,"San Francisco-Oakland-Fremont, CA",0.2337,High Segregation
+23,"Hartford-West Hartford-East Hartford, CT",0.2319,High Segregation
+24,"Boston-Cambridge-Quincy, MA-NH",0.2269,High Segregation
+25,"Reading, PA",0.2228,High Segregation
+26,"Atlantic City-Hammonton, NJ",0.2225,High Segregation
+27,"Baton Rouge, LA",0.2216,High Segregation
+28,"Springfield, MA",0.2199,High Segregation
+29,"Mobile, AL",0.219,High Segregation
+30,"Jackson, MS",0.2183,High Segregation
+31,"Bridgeport-Stamford-Norwalk, CT",0.2175,High Segregation
+32,"Montgomery, AL",0.2159,High Segregation
+33,"Flint, MI",0.2133,High Segregation
+34,"New Haven-Milford, CT",0.213,High Segregation
+35,"Indianapolis-Carmel, IN",0.2125,High Segregation
+36,"Shreveport-Bossier City, LA",0.2091,High Segregation
+37,"Richmond, VA",0.2054,High Segregation
+38,"Bakersfield-Delano, CA",0.2048,High Segregation
+39,"San Diego-Carlsbad-San Marcos, CA",0.2045,High Segregation
+40,"Lake Charles, LA",0.1994,High Segregation
+41,"Yakima, WA",0.1965,High Segregation
+42,"Greensboro-High Point, NC",0.1956,High Segregation
+43,"San Jose-Sunnyvale-Santa Clara, CA",0.1936,High Segregation
+44,"Little Rock-North Little Rock-Conway, AR",0.193,High Segregation
+45,"Columbus, OH",0.1926,High Segregation
+46,"Champaign-Urbana, IL",0.1917,High Segregation
+47,"Tuscaloosa, AL",0.1914,High Segregation
+48,"Rochester, NY",0.1913,High Segregation
+49,"Oxnard-Thousand Oaks-Ventura, CA",0.19,High Segregation
+50,"Santa Cruz-Watsonville, CA",0.1891,High Segregation
+51,"Winston-Salem, NC",0.1882,High Segregation
+52,"Charlotte-Gastonia-Rock Hill, NC-SC",0.1863,High Segregation
+53,"Dayton, OH",0.1852,High Segregation
+54,"Columbus, GA-AL",0.1838,High Segregation
+55,"Macon, GA",0.1824,High Segregation
+56,"Phoenix-Mesa-Glendale, AZ",0.1816,High Segregation
+57,"Orlando-Kissimmee-Sanford, FL",0.1803,High Segregation
+58,"Yuma, AZ",0.1771,High Segregation
+59,"Cincinnati-Middletown, OH-KY-IN",0.1768,High Segregation
+60,"Jacksonville, FL",0.1766,High Segregation
+61,"Tucson, AZ",0.1747,High Segregation
+62,"Kansas City, MO-KS",0.1738,High Segregation
+63,"Honolulu, HI",0.173,High Segregation
+64,"Naples-Marco Island, FL",0.1729,High Segregation
+65,"Durham-Chapel Hill, NC",0.1728,High Segregation
+66,"Columbia, SC",0.1707,High Segregation
+67,"Fresno, CA",0.1681,High Segregation
+68,"Santa Barbara-Santa Maria-Goleta, CA",0.1663,High Segregation
+69,"Omaha-Council Bluffs, NE-IA",0.1661,High Segregation
+70,"Peoria, IL",0.166,High Segregation
+71,"Providence-New Bedford-Fall River, RI-MA",0.1646,High Segregation
+72,"Tyler, TX",0.1645,High Segregation
+73,"Harrisburg-Carlisle, PA",0.1643,High Segregation
+74,"Louisville/Jefferson County, KY-IN",0.1643,High Segregation
+75,"Amarillo, TX",0.164,High Segregation
+76,"Chattanooga, TN-GA",0.1623,High Segregation
+77,"Virginia Beach-Norfolk-Newport News, VA-NC",0.1619,High Segregation
+78,"Oklahoma City, OK",0.1614,High Segregation
+79,"Toledo, OH",0.161,High Segregation
+80,"Gainesville, GA",0.1602,High Segregation
+81,"Riverside-San Bernardino-Ontario, CA",0.16,High Segregation
+82,"Tampa-St. Petersburg-Clearwater, FL",0.1594,High Segregation
+83,"Savannah, GA",0.1593,High Segregation
+84,"Sacramento--Arden-Arcade--Roseville, CA",0.1591,High Segregation
+85,"Waco, TX",0.1563,High Segregation
+86,"Fort Wayne, IN",0.156,High Segregation
+87,"Grand Rapids-Wyoming, MI",0.1556,High Segregation
+88,"Nashville-Davidson--Murfreesboro--Franklin, TN",0.1555,High Segregation
+89,"Tulsa, OK",0.1552,High Segregation
+90,"San Antonio-New Braunfels, TX",0.1543,High Segregation
+91,"Cape Coral-Fort Myers, FL",0.1541,High Segregation
+92,"Denver-Aurora-Broomfield, CO",0.1539,High Segregation
+93,"Raleigh-Cary, NC",0.1535,High Segregation
+94,"Syracuse, NY",0.1512,High Segregation
+95,"Tallahassee, FL",0.1507,High Segregation
+96,"Allentown-Bethlehem-Easton, PA-NJ",0.1497,High Segregation
+97,"Stockton, CA",0.1476,High Segregation
+98,"Las Vegas-Paradise, NV",0.147,High Segregation
+99,"Austin-Round Rock-San Marcos, TX",0.1445,High Segregation
+100,"Lubbock, TX",0.1437,High Segregation
+101,"Youngstown-Warren-Boardman, OH-PA",0.143,High Segregation
+102,"Fayetteville-Springdale-Rogers, AR-MO",0.1425,High Segregation
+116,"Hilton Head Island-Beaufort, SC Micropolitan Statistical Area",0.1332,High Segregation
+163,"Seaford, DE Micropolitan Statistical Area",0.0902,High Segregation
+185,"Hilo, HI Micropolitan Statistical Area",0.0652,High Segregation
+103,"Augusta-Richmond County, GA-SC",0.1418,Low-Medium Segregation
+104,"Huntsville, AL",0.1418,Low-Medium Segregation
+105,"Utica-Rome, NY",0.1418,Low-Medium Segregation
+106,"Fort Smith, AR-OK",0.1407,Low-Medium Segregation
+107,"Worcester, MA",0.1403,Low-Medium Segregation
+108,"Rockford, IL",0.1396,Low-Medium Segregation
+109,"Wichita, KS",0.1391,Low-Medium Segregation
+110,"South Bend-Mishawaka, IN-MI",0.138,Low-Medium Segregation
+111,"Akron, OH",0.1369,Low-Medium Segregation
+112,"Ann Arbor, MI",0.1367,Low-Medium Segregation
+113,"Albuquerque, NM",0.1364,Low-Medium Segregation
+114,"Port St. Lucie, FL",0.1363,Low-Medium Segregation
+115,"Pittsburgh, PA",0.135,Low-Medium Segregation
+117,"Scranton--Wilkes-Barre, PA",0.1328,Low-Medium Segregation
+118,"Albany-Schenectady-Troy, NY",0.1322,Low-Medium Segregation
+119,"Deltona-Daytona Beach-Ormond Beach, FL",0.1307,Low-Medium Segregation
+120,"Roanoke, VA",0.1306,Low-Medium Segregation
+121,"Minneapolis-St. Paul-Bloomington, MN-WI",0.1305,Low-Medium Segregation
+122,"College Station-Bryan, TX",0.129,Low-Medium Segregation
+123,"Lafayette, LA",0.1254,Low-Medium Segregation
+124,"Poughkeepsie-Newburgh-Middletown, NY",0.1254,Low-Medium Segregation
+125,"Kennewick-Pasco-Richland, WA",0.1245,Low-Medium Segregation
+126,"Corpus Christi, TX",0.1225,Low-Medium Segregation
+127,"Athens-Clarke County, GA",0.1219,Low-Medium Segregation
+128,"Charleston-North Charleston-Summerville, SC",0.1212,Low-Medium Segregation
+129,"Vallejo-Fairfield, CA",0.1201,Low-Medium Segregation
+130,"Springfield, IL",0.1199,Low-Medium Segregation
+131,"Seattle-Tacoma-Bellevue, WA",0.1188,Low-Medium Segregation
+132,"Gainesville, FL",0.1177,Low-Medium Segregation
+133,"Lansing-East Lansing, MI",0.1141,Low-Medium Segregation
+134,"Greenville-Mauldin-Easley, SC",0.1136,Low-Medium Segregation
+135,"Erie, PA",0.1128,Low-Medium Segregation
+136,"Elkhart-Goshen, IN",0.1098,Low-Medium Segregation
+137,"Gulfport-Biloxi, MS",0.1098,Low-Medium Segregation
+138,"Norwich-New London, CT",0.1098,Low-Medium Segregation
+139,"Lakeland-Winter Haven, FL",0.1091,Low-Medium Segregation
+140,"North Port-Bradenton-Sarasota, FL",0.10780000000000001,Low-Medium Segregation
+141,"Killeen-Temple-Fort Hood, TX",0.1067,Low-Medium Segregation
+142,"Lafayette, IN",0.106,Low-Medium Segregation
+143,"Lexington-Fayette, KY",0.1055,Low-Medium Segregation
+144,"Lancaster, PA",0.1043,Low-Medium Segregation
+145,"St. Cloud, MN",0.1041,Low-Medium Segregation
+146,"Kalamazoo-Portage, MI",0.1039,Low-Medium Segregation
+147,"Topeka, KS",0.1032,Low-Medium Segregation
+148,"Spartanburg, SC",0.1026,Low-Medium Segregation
+149,"Reno-Sparks, NV",0.1015,Low-Medium Segregation
+150,"Houma-Bayou Cane-Thibodaux, LA",0.1006,Low-Medium Segregation
+151,"York-Hanover, PA",0.099,Low-Medium Segregation
+152,"Pensacola-Ferry Pass-Brent, FL",0.0984,Low-Medium Segregation
+153,"Longview, TX",0.0951,Low-Medium Segregation
+154,"Visalia-Porterville, CA",0.0947,Low-Medium Segregation
+155,"Salem, OR",0.0938,Low-Medium Segregation
+156,"Ocala, FL",0.0935,Low-Medium Segregation
+157,"Green Bay, WI",0.0934,Low-Medium Segregation
+158,"Davenport-Moline-Rock Island, IA-IL",0.0925,Low-Medium Segregation
+159,"Modesto, CA",0.0918,Low-Medium Segregation
+160,"Fayetteville, NC",0.091,Low-Medium Segregation
+161,"Merced, CA",0.0906,Low-Medium Segregation
+162,"Clarksville, TN-KY",0.0904,Low-Medium Segregation
+164,"Anchorage, AK",0.0901,Low-Medium Segregation
+165,"Des Moines-West Des Moines, IA",0.09,Low-Medium Segregation
+166,"Greeley, CO",0.09,Low-Medium Segregation
+167,"Salt Lake City, UT",0.0888,Low-Medium Segregation
+168,"Las Cruces, NM",0.0881,Low-Medium Segregation
+169,"Wilmington, NC",0.0849,Low-Medium Segregation
+170,"Madison, WI",0.0848,Low-Medium Segregation
+171,"Charlottesville, VA",0.0827,Low-Medium Segregation
+172,"Santa Rosa-Petaluma, CA",0.0803,Low-Medium Segregation
+173,"Knoxville, TN",0.0801,Low-Medium Segregation
+174,"Binghamton, NY",0.0793,Low-Medium Segregation
+175,"Portland-Vancouver-Hillsboro, OR-WA",0.0765,Low-Medium Segregation
+176,"Lynchburg, VA",0.0764,Low-Medium Segregation
+177,"Canton-Massillon, OH",0.0758,Low-Medium Segregation
+178,"Anderson, SC",0.0753,Low-Medium Segregation
+179,"El Paso, TX",0.0716,Low-Medium Segregation
+180,"Myrtle Beach-North Myrtle Beach-Conway, SC",0.0694,Low-Medium Segregation
+181,"Holland-Grand Haven, MI",0.0691,Low-Medium Segregation
+183,"Evansville, IN-KY",0.0675,Low-Medium Segregation
+184,"Hickory-Lenoir-Morganton, NC",0.0659,Low-Medium Segregation
+186,"Rochester, MN",0.0645,Low-Medium Segregation
+187,"Sioux Falls, SD",0.0638,Low-Medium Segregation
+188,"Manchester-Nashua, NH",0.0637,Low-Medium Segregation
+190,"Hagerstown-Martinsburg, MD-WV",0.0614,Low-Medium Segregation
+191,"Boulder, CO",0.0593,Low-Medium Segregation
+193,"Charleston, WV",0.0569,Low-Medium Segregation
+194,"Cedar Rapids, IA",0.0547,Low-Medium Segregation
+196,"Lincoln, NE",0.0533,Low-Medium Segregation
+197,"Asheville, NC",0.0514,Low-Medium Segregation
+198,"Bellingham, WA",0.0503,Low-Medium Segregation
+200,"Appleton, WI",0.0489,Low-Medium Segregation
+201,"Ogden-Clearfield, UT",0.0463,Low-Medium Segregation
+202,"Boise City-Nampa, ID",0.0461,Low-Medium Segregation
+203,"Lake Havasu City-Kingman, AZ",0.0439,Low-Medium Segregation
+204,"Duluth, MN-WI",0.042,Low-Medium Segregation
+205,"Bremerton-Silverdale, WA",0.0419,Low-Medium Segregation
+206,"Brownsville-Harlingen, TX",0.0417,Low-Medium Segregation
+207,"Daphne-Fairhope-Foley, AL Micropolitan Statistical Area",0.0417,Low-Medium Segregation
+208,"Crestview-Fort Walton Beach-Destin, FL",0.039,Low-Medium Segregation
+209,"Barnstable Town, MA",0.0389,Low-Medium Segregation
+210,"Fargo, ND-MN",0.0385,Low-Medium Segregation
+211,"Olympia, WA",0.0361,Low-Medium Segregation
+212,"Provo-Orem, UT",0.0359,Low-Medium Segregation
+213,"Johnson City, TN",0.0355,Low-Medium Segregation
+214,"Huntington-Ashland, WV-KY-OH",0.0326,Low-Medium Segregation
+215,"Portland-South Portland-Biddeford, ME",0.0322,Low-Medium Segregation
+216,"McAllen-Edinburg-Mission, TX",0.0313,Low-Medium Segregation
+217,"Prescott, AZ",0.0293,Low-Medium Segregation
+218,"Burlington-South Burlington, VT",0.0291,Low-Medium Segregation
+219,"Medford, OR",0.0278,Low-Medium Segregation
+220,"Springfield, MO",0.0262,Low-Medium Segregation
+221,"Fort Collins-Loveland, CO",0.0244,Low-Medium Segregation
+222,"Eugene-Springfield, OR",0.0221,Low-Medium Segregation
+223,"Spokane, WA",0.0218,Low-Medium Segregation
+224,"Kingsport-Bristol-Bristol, TN-VA",0.0157,Low-Medium Segregation
+225,"Laredo, TX",0.011,Low-Medium Segregation
+182,"Palm Bay-Melbourne-Titusville, FL",0.0679,Integrated
+189,"San Luis Obispo-Paso Robles, CA",0.0619,Integrated
+192,"Jacksonville, NC",0.0586,Integrated
+195,"Colorado Springs, CO",0.053900000000000003,Integrated
+199,"Chico, CA",0.0491,Integrated

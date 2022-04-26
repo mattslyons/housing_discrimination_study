@@ -1,0 +1,100 @@
+---
+title: "rental_response_data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(data.table)
+library(stargazer)
+library(future.apply)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+city <- c('chicago',
+          'dallas',
+          'houston',
+          'washingtondc',
+          'philadelphia',
+          'miami',
+          'atlanta',
+          'boston',
+          'phoenix',
+          'sfbay',
+          'inlandempire',
+          'detroit',
+          'seattle',
+          'minneapolis',
+          'sandiego',
+          'tampa',
+          'denver',
+          'baltimore')
+n <- rep(9000/length(city),length(city))
+black_subj_ratio <- rep(.5,length(city))
+female_subj_ratio <- rep(.5,length(city))
+cities <- cbind(city,n,black_subj_ratio,female_subj_ratio)
+```
+
+
+
+```{r}
+# generate a test city
+test_city <- cbind('test',100,.5,.5)
+cities <- rbind(cities,test_city)
+```
+
+
+
+```{r}
+set.seed(1234)
+
+make_city_data <- function(city = cities[1,]){
+  n = as.numeric(city['n'])
+  
+  subj_black = trunc(as.numeric(city['black_subj_ratio']) * n)
+  subj_female = trunc(as.numeric(city['female_subj_ratio']) * n)
+  city_data <- data.table(
+    city = rep(city['city'],n),
+    female = sample(rep(0:1,c(n-subj_female, subj_female))),
+    black = sample(rep(0:1,c(n-subj_black, subj_black)))
+  )
+  
+  return(city_data)
+}
+```
+
+```{r}
+make_response_table <- function(cities = cities) {
+  multi_city_data <- data.table()
+  
+  for (i in 1:nrow(cities)) {
+    multi_city_data <- rbind(multi_city_data,make_city_data(city = cities[i,]))
+  }
+  
+  return(multi_city_data)
+}
+rental_response_data <- make_response_table(cities)
+rental_response_data[,email := as.character(NA)]
+rental_response_data[,listing_timestamp := NA]
+rental_response_data[,sent_timestamp := NA]
+rental_response_data[,response_timestamp := NA]
+```
+
+
+```{r}
+# generate test recipients
+rand_part <- seq(1000,1000+100-1)
+name_part <- rep('sam.stephens+test',length(rand_part))
+email_part <- rep('@berkeley.edu',length(rand_part))
+test_emails <- data.table(
+  city = 'test',
+  email = paste(name_part,rand_part,email_part,sep=''))
+rental_response_data[city == 'test',email := test_emails[,email]]
+```
+
+
+```{r}
+write.csv(rental_response_data,"../../data/interim/rental_response_data.csv",row.names = T)
+```
